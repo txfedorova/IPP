@@ -1,7 +1,115 @@
-# Implementační dokumentace k 1. úloze do IPP 2022/2023
+# Implementační dokumentace k 2. úloze do IPP 2022/2023
 Jméno a příjmení: Fedorova Tatiana
 Login: xfedor14
 
+## UML diagram
++--------------+
+|   Context    |        
+|--------------|
+| GF           |
+| TF           |
+| TF_flag      |
+| __instance   |
+| cnt_instr    |
+| cnt_line     |
+| input        |
+| label        |
+| program      |
+| src          |
+| st_data      |
+| st_frame     |
+| st_jump      |
+|--------------|
+| __init__     |
+| get_instance |
++--------------+
+                                                                                                         
+                                                                                                         
+                                                                                                         
+                                                                                                         
++-----------+                                           +-------------+       +-------------------------+
+|  Argument |                                           |     XML     |       |       Interpreter       |
+|-----------|                                           |-------------|       |-------------------------|
+| argument  |  ---->  [ argparse.ArgumentParser ]       | source_file |       | functions               |
+|-----------|                                           |-------------|       | index                   |
+| __init__  |                                           | __init__    |       | instr_done              |
+| parse     |                                           | get_arg     |       | instr_order             |
+| parse_arg |                                           | get_instr   |       |-------------------------|
++-----------+                                           | get_label   |       | __init__                |
+                                                        | parse       |       | _add                    |
+                                                        +-------------+       | _add_sub_mul_idiv       |
+                                                                              | _and                    |
+                                                                              | _and_or                 |
+                                                                              | _break                  |
+                                                                              | _call                   |
++-------------------------+                                                   |                         |
+| argparse.ArgumentParser |                                                   |                         |
+|-------------------------|                                                   |                         |
+|                         |                                                   |                         |
++-------------------------+                                                   | _concat                 |
+                                                                              | _create_frame           |
+                                                                              | _defvar                 |
+                                                                              | _dprint                 |
+                                                                              | _eq                     |
+                                                                              | _exit                   |
+                                                                              | _get_char               |
+                                                                              | _gt                     |
+                                                                              | _idiv                   |
+                                                                              | _int2char               |
+                                                                              | _jump                   |
+                                                                              | _jump                   |
+                                                                              | _jumpifeq               |
+                                                                              | _jumpifneq              |
+                                                                              | _lt                     |
+                                                                              | _lt_gt_eq               |
+                                                                              | _move                   |
+                                                                              | _mul                    |
+                                                                              | _not                    |
+                                                                              | _or                     |
+                                                                              | _pop_frame              |
+                                                                              | _pops                   |
+                                                                              | _push_frame             |
+                                                                              | _pushs                  |
+                                                                              | _read                   |
+                                                                              | _return                 |
+                                                                              | _set_char               |
+                                                                              | _stri2int               |
+                                                                              | _strlen                 |
+                                                                              | _sub                    |
+                                                                              | _type                   |
+                                                                              | _write                  |
+                                                                              | _write_and_dprint       |
+                                                                              | get_arg_type_and_value  |
+                                                                              | get_frame               |
+                                                                              | get_var_type_and_value  |
+                                                                              | if_bool                 |
+                                                                              | if_int                  |
+                                                                              | if_string               |
+                                                                              | if_varible              |
+                                                                              | interpret               |
+                                                                              | jump                    |
+                                                                              | process_instruction_for |
+                                                                              +-------------------------+
+                           
+      
 ## Implementace
-Skript ```parse.php``` čte ze stdin argumenty pomocí funkce ```arg_read($argc, $argv)```. Tato funkce vrací buď nápovědu  (spuštění skriptu s argumentem ``` --help ```), nebo skončí s návratovým kódem 10 na stderr. Dále pomocí funkce ```input_read($output)```, která přijímá jako argument proměnnou outout (datový typ string), program v cyklu zpracovává vstup. Pomocí funkcí ```preg_replace```, ```trim``` se odstraní komentáře, nové řádky apod. Nastaví se hlavička na ```<program language="IPPcode23``` a příslušný flag ```header_flag = true```. Dále se uvnitř konstrukce ``` switch(strtoupper($string[0]))```se zpracová každý řádek instrukcí. Nejdřív se kontroluje počet argumentů pro každou instrukci ```if(sizeof($string) != 2)```, následně pomocí funkce ```preg_match``` se zjistí typ argumentů (var, nil, bool,int atd.). V případě, že se jedná o symbol, zpracování pokračuje do funkce ```symbol_read($symbol)```, kde se zjistí o který symbol (datový typ) jednalo, také provede se kontrola na escape sekvence. Na konci programu (pokud nebyla nalezená chyba) se vypíše řetězec ```output```.  Internet zdroje (manualy, stackoverflow) jsou uvedeny v komentářích.
-Výsledný skript není přehledný kvůli nedostatečné dekompozici (nedostatečný počet funkcí).
+
+### Argumenty
+Na zacatku skript interpret.py zpracovava vstupni argumenty pres knihovnu argparse. Argumenty pro vstup jsou nasledovne: --source s vstupnim souborem s XML reprezentaci zdrojoveho kodu a --input
+souborem s vstupy (musi byt uveden alespon jeden).
+
+### XML
+Pro parsovani XML se pouziva xml.etree.ElementTree. Skript na zacatku kontroluje, zda je struktura korene spravna, potom pokracuje prochazenim vsech polozek a kontrolou struktury instrukci a jejich argumentu. Behem parsovani skript vytvari novou strukturu programu
+
+### Instrukce 
+Pred interpretaci instrukci skript radi instrukce podle poradi, prochazi vsechny instrukce a ziskava vsechny navesti instrukce s poradim, aby provedl skoky. Potom je vse pripraveno pro interpretaci instrukci, skript postupuje jednu instrukci za druhou. Vyuziva pomocne funkce:
+get_frame - vrati ramec (GF/TF/LF)
+get_var_type_and_value - nastavi typ a hodnotu promenne
+get_arg_type_and_value - vrati typ argumentu a hodnotu
+jump - zajistuje spravny skok (na spravny label)
+
+### OOP
+Principy OOP byly vuyzity, ale neefektivne. Pouzite klasy jsou: Context (obsahuje vetsinu promennych pro sdileny pristup), Argument (probiha parsing argumentu), XML (probiha parsing XML souboru), Interpreter (obsahuje zbyle metody). Vysledne klasy nejsou logicke rozdeleny.
+
+### Poznamky
+Internet zdroje (manualy, stackoverflow) jsou uvedeny v komentářích.
