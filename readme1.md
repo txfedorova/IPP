@@ -4,7 +4,7 @@ Login: xfedor14
 
 ## UML diagram
 +--------------+
-|   Context    |        
+|   Context    |
 |--------------|
 | GF           |
 | TF           |
@@ -42,11 +42,7 @@ Login: xfedor14
                                                                               | _and_or                 |
                                                                               | _break                  |
                                                                               | _call                   |
-+-------------------------+                                                   |                         |
-| argparse.ArgumentParser |                                                   |                         |
-|-------------------------|                                                   |                         |
-|                         |                                                   |                         |
-+-------------------------+                                                   | _concat                 |
+                                                                              | _concat                 |
                                                                               | _create_frame           |
                                                                               | _defvar                 |
                                                                               | _dprint                 |
@@ -91,6 +87,14 @@ Login: xfedor14
                                                                               | process_instruction_for |
                                                                               +-------------------------+
                            
+                           
+                           
+                           
++-------------------------+
+| argparse.ArgumentParser |
+|-------------------------|
+|                         |
++-------------------------+
       
 ## Implementace
 
