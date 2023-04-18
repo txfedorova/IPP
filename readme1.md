@@ -41,6 +41,7 @@ Login: xfedor14
 +-----------+                                           | get_label   |       | __init__                |
                                                         | parse       |       |  add                    |
                                                         +-------------+       |  add_sub_mul_idiv       |
+                                                                              +-------------------------+
                                                                               |  and                    |
                                                                               |  and_or                 |
                                                                               |  break                  |
