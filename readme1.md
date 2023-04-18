@@ -3,6 +3,9 @@ Jméno a příjmení: Fedorova Tatiana
 Login: xfedor14
 
 ## UML diagram
+
+
+
 +--------------+
 |   Context    |
 |--------------|
@@ -36,45 +39,45 @@ Login: xfedor14
 | parse     |                                           | get_arg     |       | instr_order             |
 | parse_arg |                                           | get_instr   |       |-------------------------|
 +-----------+                                           | get_label   |       | __init__                |
-                                                        | parse       |       | _add                    |
-                                                        +-------------+       | _add_sub_mul_idiv       |
-                                                                              | _and                    |
-                                                                              | _and_or                 |
-                                                                              | _break                  |
-                                                                              | _call                   |
-                                                                              | _concat                 |
-                                                                              | _create_frame           |
-                                                                              | _defvar                 |
-                                                                              | _dprint                 |
-                                                                              | _eq                     |
-                                                                              | _exit                   |
-                                                                              | _get_char               |
-                                                                              | _gt                     |
-                                                                              | _idiv                   |
-                                                                              | _int2char               |
-                                                                              | _jump                   |
-                                                                              | _jump                   |
-                                                                              | _jumpifeq               |
-                                                                              | _jumpifneq              |
-                                                                              | _lt                     |
-                                                                              | _lt_gt_eq               |
-                                                                              | _move                   |
-                                                                              | _mul                    |
-                                                                              | _not                    |
-                                                                              | _or                     |
-                                                                              | _pop_frame              |
-                                                                              | _pops                   |
-                                                                              | _push_frame             |
-                                                                              | _pushs                  |
-                                                                              | _read                   |
-                                                                              | _return                 |
-                                                                              | _set_char               |
-                                                                              | _stri2int               |
-                                                                              | _strlen                 |
-                                                                              | _sub                    |
-                                                                              | _type                   |
-                                                                              | _write                  |
-                                                                              | _write_and_dprint       |
+                                                        | parse       |       |  add                    |
+                                                        +-------------+       |  add_sub_mul_idiv       |
+                                                                              |  and                    |
+                                                                              |  and_or                 |
+                                                                              |  break                  |
+                                                                              |  call                   |
+                                                                              |  concat                 |
+                                                                              |  create_frame           |
+                                                                              |  defvar                 |
+                                                                              |  dprint                 |
+                                                                              |  eq                     |
+                                                                              |  exit                   |
+                                                                              |  get_char               |
+                                                                              |  gt                     |
+                                                                              |  idiv                   |
+                                                                              |  int2char               |
+                                                                              |  jump                   |
+                                                                              |  jump                   |
+                                                                              |  jumpifeq               |
+                                                                              |  jumpifneq              |
+                                                                              |  lt                     |
+                                                                              |  lt_gt_eq               |
+                                                                              |  move                   |
+                                                                              |  mul                    |
+                                                                              |  not                    |
+                                                                              |  or                     |
+                                                                              |  pop_frame              |
+                                                                              |  pops                   |
+                                                                              |  push_frame             |
+                                                                              |  pushs                  |
+                                                                              |  read                   |
+                                                                              |  return                 |
+                                                                              |  set_char               |
+                                                                              |  stri2int               |
+                                                                              |  strlen                 |
+                                                                              |  sub                    |
+                                                                              |  type                   |
+                                                                              |  write                  |
+                                                                              |  write_and_dprint       |
                                                                               | get_arg_type_and_value  |
                                                                               | get_frame               |
                                                                               | get_var_type_and_value  |
@@ -95,6 +98,8 @@ Login: xfedor14
 |-------------------------|
 |                         |
 +-------------------------+
+
+
       
 ## Implementace
 
